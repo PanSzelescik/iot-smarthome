@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/*var postgresConnectionString = builder.Configuration.GetConnectionString("Postgres")!;
-builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseNpgsql(postgresConnectionString));*/
+var postgresConnectionString = builder.Configuration.GetConnectionString("Postgres")!;
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseNpgsql(postgresConnectionString));
+
+builder.Services.AddApplicationInsightsTelemetry();
 
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
@@ -27,8 +29,8 @@ app.UseSwaggerUI();
 app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromDescription(); // Redirect / to Swagger UI
 app.UseExampleEndpoint();
 
-/*await using var scope = app.Services.CreateAsyncScope();
+await using var scope = app.Services.CreateAsyncScope();
 await using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-await context.Database.MigrateAsync(app.Lifetime.ApplicationStopping);*/
+await context.Database.MigrateAsync(app.Lifetime.ApplicationStopping);
 
 await app.RunAsync();
