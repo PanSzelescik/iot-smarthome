@@ -61,6 +61,6 @@ chciałbym móc aktywować tryb oszczędzania energii
 po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 
 ## 💰 Cost Calculator
-![Azure_Cost_Calculator](https://github.com/user-attachments/assets/4bc6053c-149a-47b9-98ac-c588059d4276)
+![Azure_Cost_Calculator](https://github.com/PanSzelescik/iot-smarthome/blob/main/Azure_Cost_Calculator.png)
 
 
