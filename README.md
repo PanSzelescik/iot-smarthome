@@ -60,7 +60,7 @@ Jako użytkownik
 chciałbym móc aktywować tryb oszczędzania energii
 po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 
-## Diagram architektury - C4 model
+## 📊 Diagram architektury - C4 model
 
 ![image](https://github.com/user-attachments/assets/49dd0e4a-b2af-46a5-8059-3102fae1556d)
 
@@ -69,4 +69,4 @@ po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 ## 💰 Cost Calculator
 ![Azure_Cost_Calculator](https://github.com/PanSzelescik/iot-smarthome/blob/main/Azure_Cost_Calculator.png)
 
-## Instalacja
+## 🚨 Instalacja
