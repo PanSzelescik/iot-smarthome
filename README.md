@@ -1,6 +1,17 @@
 # iot-smarthome
 
-Baza danych trzymałaby dane o temperaturze w "pokoju" oraz informację od jakiej temperatury włączyć "grzejnik" oraz go wyłączyć, następnie aplikacja zbierałaby te dane i wysyłała włączenie/wyłączenie grzejnika. Mogłaby też oferować obliczanie np. średniej temperatury.
+SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitorowanie temperatury w pomieszczeniu.
+
+## ✨ Funkcje
+
+- **Zbieranie danych** – Rejestrowanie temperatury w czasie rzeczywistym i zapisywanie jej w bazie danych.
+- **Automatyczne sterowanie ogrzewaniem** – Włączanie i wyłączanie grzejnika na podstawie zadanych progów temperatury.
+- **Analiza danych** – Obliczanie średniej temperatury w określonym przedziale czasowym.
+
+## 🛠 Technologie
+
+- **Backend:** .NET 9 (ASP.NET Core)
+- **Baza danych:** PostgreSQL
 
 ## User stories
 1. Utrzymanie komfortowej temperatury w pomieszczeniu:
