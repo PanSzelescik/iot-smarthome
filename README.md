@@ -63,6 +63,7 @@ po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 ## Diagram architektury - C4 model
 
 ![image](https://github.com/user-attachments/assets/49dd0e4a-b2af-46a5-8059-3102fae1556d)
+
 ![image](https://github.com/user-attachments/assets/154d7775-9c5b-4c5c-82f3-92cc12932379)
 
 ## 💰 Cost Calculator
