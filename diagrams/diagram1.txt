@@ -1,0 +1,9 @@
+@startuml Simple_Context_Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(user, "Użytkownik", "Korzysta z systemu smart home")
+System(system, "IoT SmartHome System", "Zarządza urządzeniami IoT przez interfejs webowy")
+
+Rel(user, system, "Używa", "HTTP")
+
+@enduml

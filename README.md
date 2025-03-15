@@ -60,44 +60,12 @@ Jako użytkownik
 chciałbym móc aktywować tryb oszczędzania energii
 po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 
-## C4 Diagram architektury
+## Diagram architektury - C4 model
 
 ![image](https://github.com/user-attachments/assets/49dd0e4a-b2af-46a5-8059-3102fae1556d)
-
-@startuml Simple_Context_Diagram
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
-
-Person(user, "Użytkownik", "Korzysta z systemu smart home")
-System(system, "IoT SmartHome System", "Zarządza urządzeniami IoT przez interfejs webowy")
-
-Rel(user, system, "Używa", "HTTP")
-
-@enduml
-
 ![image](https://github.com/user-attachments/assets/154d7775-9c5b-4c5c-82f3-92cc12932379)
-
-@startuml Containers_Diagram
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
-
-Person(user, "Użytkownik", "Korzysta z systemu")
-
-System_Boundary(system, "IoT SmartHome") {
-    Container(web, "Aplikacja Webowa", ".NET", "Interfejs zarządzania")
-    Container(hub, "Azure IoT Hub", "", "")
-    ContainerDb(db, "Baza Danych", "CosmosDB", "Przechowuje stan systemu")
-    Container(device, "Urządzenie IoT", "Symulator", "Czujniki/aktuary")
-}
-
-Rel(user, web, "Używa", "HTTP")
-Rel(web, hub, "Wywołuje API", "REST")
-Rel(web, db, "Zapisuje/Odczytuje dane", "SQL")
-Rel(hub, device, "Komunikacja", "MQTT")
-Rel(device, hub, "Wysyła dane", "MQTT")
-
-@enduml
-
 
 ## 💰 Cost Calculator
 ![Azure_Cost_Calculator](https://github.com/PanSzelescik/iot-smarthome/blob/main/Azure_Cost_Calculator.png)
 
-
+## Instalacja

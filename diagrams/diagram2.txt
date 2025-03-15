@@ -1,0 +1,19 @@
+@startuml Containers_Diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Użytkownik", "Korzysta z systemu")
+
+System_Boundary(system, "IoT SmartHome") {
+    Container(web, "Aplikacja Webowa", ".NET", "Interfejs zarządzania")
+    Container(hub, "Azure IoT Hub", "", "")
+    ContainerDb(db, "Baza Danych", "CosmosDB", "Przechowuje stan systemu")
+    Container(device, "Urządzenie IoT", "Symulator", "Czujniki/aktuary")
+}
+
+Rel(user, web, "Używa", "HTTP")
+Rel(web, hub, "Wywołuje API", "REST")
+Rel(web, db, "Zapisuje/Odczytuje dane", "SQL")
+Rel(hub, device, "Komunikacja", "MQTT")
+Rel(device, hub, "Wysyła dane", "MQTT")
+
+@enduml
