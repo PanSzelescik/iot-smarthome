@@ -16,10 +16,10 @@ SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitor
 ## User stories
 1. Utrzymanie komfortowej temperatury w pomieszczeniu:
 
-JAKO użytkownik
-CHCIAŁBYM  móc ustawić docelową temperaturę,
+Jako użytkownik
+chciałbym móc ustawić docelową temperaturę,
 przy której grzejnik włączy się,
-PO TO, aby podnieść temperaturę w pomieszczeniu do komfortowego poziomu, 
+po to, aby podnieść temperaturę w pomieszczeniu do komfortowego poziomu, 
 oraz temperaturę, przy której grzejnik automatycznie się wyłączy, aby nie przegrzewać pomieszczenia. 
 Dzięki temu system grzewczy działałby w sposób efektywny, utrzymując stałą, komfortową temperaturę w pomieszczeniu, 
 unikając jednocześnie zbędnego zużycia energii. Moje ustawienia powinny być elastyczne i umożliwiać łatwą regulację 
@@ -27,35 +27,35 @@ w zależności od pory dnia czy preferencji, zapewniając optymalny komfort ciep
 
 2. Monitorowanie temperatury:
 
-JAKO użytkownik
-CHCIAŁBYM, aby temperatura była wyświetlana w czasie rzeczywistym,
-PO TO, aby w razie potrzeby szybko zareagować i dostosować ustawienia grzejnika 
+Jako użytkownik
+chciałbym, aby temperatura była wyświetlana w czasie rzeczywistym,
+po to, aby w razie potrzeby szybko zareagować i dostosować ustawienia grzejnika 
 lub klimatyzatora, zapewniając optymalny komfort cieplny. Dodatkowo,
 przydatne byłoby mieć możliwość sprawdzenia historii temperatury, 
 aby analizować, jak zmieniała się temperatura w ciągu dnia lub tygodnia.
 
 3. Historia temperatury:
 
-JAKO użytkownik
-CHCIAŁBYM Chciałbym mieć możliwość przeglądania historii zmian temperatury w pomieszczeniu,
-PO TO, aby móc analizować, jak temperatura zmieniała się w różnych porach dnia i nocy. 
+Jako użytkownik
+chciałbym Chciałbym mieć możliwość przeglądania historii zmian temperatury w pomieszczeniu,
+po to, aby móc analizować, jak temperatura zmieniała się w różnych porach dnia i nocy. 
 Analiza takich danych ułatwiłaby mi także planowanie, jak najlepiej wykorzystać system grzewczy 
 w zależności od zmieniających się warunków w ciągu dnia lub tygodnia.
 
 4. Obliczanie średniej temperatury:
 
-JAKO użytkownik
-CHCIAŁBYM móc zobaczyć średnią temperaturę z wybranego okresu
-PO TO, ABY ocenić, jak efektywnie działa ogrzewanie
+Jako użytkownik
+chciałbym móc zobaczyć średnią temperaturę z wybranego okresu
+po to, aby ocenić, jak efektywnie działa ogrzewanie
 
 5. Obsługa różnych jednostek temperatury:
 
-JAKO użytkownik
-CHCIAŁBYM móc wybrać jednostkę temperatury (°C lub °F)
-PO TO, ABY dostosować system do moich preferencji.
+Jako użytkownik
+chciałbym móc wybrać jednostkę temperatury (°C lub °F)
+po to, aby dostosować system do moich preferencji.
 
 6. Oszczędzanie energii:
 
-JAKO użytkownik
-CHCIAŁBYM móc aktywować tryb oszczędzania energii
-PO TO, ABY zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
+Jako użytkownik
+chciałbym móc aktywować tryb oszczędzania energii
+po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
