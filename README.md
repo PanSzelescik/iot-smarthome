@@ -17,20 +17,30 @@ SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitor
 1. Utrzymanie komfortowej temperatury w pomieszczeniu:
 
 JAKO użytkownik
-CHCIAŁBYM ustawić temperaturę dla włączenia i wyłączenia grzejnika
-PO TO, ABY utrzymać komfortową temperaturę w pomieszczeniu.
+CHCIAŁBYM  móc ustawić docelową temperaturę,
+przy której grzejnik włączy się,
+PO TO, aby podnieść temperaturę w pomieszczeniu do komfortowego poziomu, 
+oraz temperaturę, przy której grzejnik automatycznie się wyłączy, aby nie przegrzewać pomieszczenia. 
+Dzięki temu system grzewczy działałby w sposób efektywny, utrzymując stałą, komfortową temperaturę w pomieszczeniu, 
+unikając jednocześnie zbędnego zużycia energii. Moje ustawienia powinny być elastyczne i umożliwiać łatwą regulację 
+w zależności od pory dnia czy preferencji, zapewniając optymalny komfort cieplny.
 
 2. Monitorowanie temperatury:
 
 JAKO użytkownik
-CHCIAŁBYM móc zobaczyć aktualną temperaturę w pomieszczeniu
-PO TO, ABY kontrolować temperaturę w pomieszczeniu
+CHCIAŁBYM, aby temperatura była wyświetlana w czasie rzeczywistym,
+PO TO, aby w razie potrzeby szybko zareagować i dostosować ustawienia grzejnika 
+lub klimatyzatora, zapewniając optymalny komfort cieplny. Dodatkowo,
+przydatne byłoby mieć możliwość sprawdzenia historii temperatury, 
+aby analizować, jak zmieniała się temperatura w ciągu dnia lub tygodnia.
 
 3. Historia temperatury:
 
 JAKO użytkownik
-CHCIAŁBYM móc przeglądać historię zmian temperatury
-PO TO, ABY analizować trendy i dostosować ustawienia grzejnika.
+CHCIAŁBYM Chciałbym mieć możliwość przeglądania historii zmian temperatury w pomieszczeniu,
+PO TO, aby móc analizować, jak temperatura zmieniała się w różnych porach dnia i nocy. 
+Analiza takich danych ułatwiłaby mi także planowanie, jak najlepiej wykorzystać system grzewczy 
+w zależności od zmieniających się warunków w ciągu dnia lub tygodnia.
 
 4. Obliczanie średniej temperatury:
 
