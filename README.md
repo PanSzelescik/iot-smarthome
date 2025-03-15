@@ -65,7 +65,7 @@ po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 ![image](https://github.com/user-attachments/assets/f20d7679-d5e1-4fd7-8d2a-66174d13a9cd)
 
 
-![image](https://github.com/user-attachments/assets/b766ddba-1c31-48b9-8b7d-4cfb2789f722)
+![image](https://github.com/user-attachments/assets/b0de2b9e-3c79-4219-8d65-9ab543baebc2)
 
 ## 💰 Cost Calculator
 ![Azure_Cost_Calculator](https://github.com/PanSzelescik/iot-smarthome/blob/main/Azure_Cost_Calculator.png)
