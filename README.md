@@ -13,7 +13,7 @@ SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitor
 - **Backend:** .NET 9 (ASP.NET Core)
 - **Baza danych:** PostgreSQL
 
-## User stories
+## 🙋‍♂️ User stories
 1. Utrzymanie komfortowej temperatury w pomieszczeniu:
 
 Jako użytkownik
@@ -59,3 +59,8 @@ po to, aby dostosować system do moich preferencji.
 Jako użytkownik
 chciałbym móc aktywować tryb oszczędzania energii
 po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
+
+## 💰 Cost Calculator
+![Azure_Cost_Calculator](https://github.com/user-attachments/assets/4bc6053c-149a-47b9-98ac-c588059d4276)
+
+
