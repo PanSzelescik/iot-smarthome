@@ -7,14 +7,15 @@ Person(user, "Użytkownik", "Korzysta z systemu")
 System_Boundary(system, "IoT SmartHome") {
     Container(web, "Aplikacja Webowa", ".NET, Azure App Service", "Interfejs zarządzania aplikacją webową i API")
     Container(hub, "Azure IoT Hub", "", "Centralny broker komunikatów dla ekosystemu IoT: routuje dane między urządzeniami a aplikacją")
-    ContainerDb(db, "Baza Danych", "CosmosDB", "Przechowuje stan systemu")
+    ContainerDb(db, "Baza Danych", "CosmosDB", "Przechowuje dane i stan systemu")
     Container(device, "Urządzenie IoT", "Symulator, Azure Functions", "Czujniki/aktuary")
 }
 
 Rel(user, web, "Używa", "HTTP")
 Rel(web, hub, "Wysyła dane", "MQTT")
 Rel(hub, web, "Odbiera dane", "MQTT")
-Rel(web, db, "Zapisuje/Odczytuje dane", "SQL")
+Rel(web, db, "Zapisuje dane", "SQL")
+Rel(db, web, "Odczytuje dane", "SQL")
 Rel(hub, device, "Komunikacja", "MQTT")
 Rel(device, hub, "Wysyła dane", "MQTT")
 @enduml
