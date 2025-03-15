@@ -27,7 +27,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromDescription(); // Redirect / to Swagger UI
-app.UseExampleEndpoint();
+app.UseStatesEndpoints();
 
 await using var scope = app.Services.CreateAsyncScope();
 await using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
