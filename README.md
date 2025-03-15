@@ -1,6 +1,6 @@
 # iot-smarthome
 
-SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitorowanie temperatury w pomieszczeniu.
+SmartHeating to aplikacja oparta na .NET 9 i CosmosDB, umożliwiająca monitorowanie temperatury w pomieszczeniu.
 
 ## ✨ Funkcje
 
@@ -11,7 +11,7 @@ SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitor
 ## 🛠 Technologie
 
 - **Backend:** .NET 9 (ASP.NET Core)
-- **Baza danych:** PostgreSQL
+- **Baza danych:** CosmosDB
 
 ## 🙋‍♂️ User stories
 1. Utrzymanie komfortowej temperatury w pomieszczeniu:
