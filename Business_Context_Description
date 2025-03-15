@@ -3,7 +3,7 @@
 ## 🔥 SmartHeating – Inteligentne Sterowanie Temperaturą  
 
 1. Wprowadzenie 
-SmartHeating to nowoczesna aplikacja IoT, która łączy technologię .NET 9 z bazą danych PostgreSQL, oferując użytkownikom możliwość monitorowania i zarządzania temperaturą w pomieszczeniach. 
+SmartHeating to nowoczesna aplikacja IoT, która łączy technologię .NET 9 z bazą danych CosmosDB, oferując użytkownikom możliwość monitorowania i zarządzania temperaturą w pomieszczeniach. 
 System zapewnia automatyczne sterowanie ogrzewaniem, analizę danych oraz oszczędzanie energii, co czyni go atrakcyjnym rozwiązaniem zarówno dla użytkowników indywidualnych, jak i dla przedsiębiorstw.  
 
 2. Problem, który rozwiązujemy 
