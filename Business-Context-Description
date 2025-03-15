@@ -1,26 +1,31 @@
-### 📌 Business Context Description  
+# 📌 Business Context Description  
 
-#### 🔥 **SmartHeating – Inteligentne Sterowanie Temperaturą**  
+## 🔥 SmartHeating – Inteligentne Sterowanie Temperaturą  
 
-**1. Wprowadzenie**  
-SmartHeating to nowoczesna aplikacja IoT, która łączy technologię .NET 9 z bazą danych PostgreSQL, oferując użytkownikom możliwość monitorowania i zarządzania temperaturą w pomieszczeniach. System zapewnia automatyczne sterowanie ogrzewaniem, analizę danych oraz oszczędzanie energii, co czyni go atrakcyjnym rozwiązaniem zarówno dla użytkowników indywidualnych, jak i dla przedsiębiorstw.  
+1. Wprowadzenie 
+SmartHeating to nowoczesna aplikacja IoT, która łączy technologię .NET 9 z bazą danych PostgreSQL, oferując użytkownikom możliwość monitorowania i zarządzania temperaturą w pomieszczeniach. 
+System zapewnia automatyczne sterowanie ogrzewaniem, analizę danych oraz oszczędzanie energii, co czyni go atrakcyjnym rozwiązaniem zarówno dla użytkowników indywidualnych, jak i dla przedsiębiorstw.  
 
-**2. Problem, który rozwiązujemy**  
-Zarządzanie temperaturą w pomieszczeniach jest kluczowe dla komfortu użytkowników oraz efektywności energetycznej. Wiele systemów ogrzewania działa nieoptymalnie, prowadząc do nadmiernego zużycia energii i wysokich kosztów eksploatacji. Dodatkowo, brak dostępu do danych historycznych oraz brak możliwości elastycznego dostosowania ustawień utrudnia skuteczne zarządzanie ciepłem.  
+2. Problem, który rozwiązujemy 
+Zarządzanie temperaturą w pomieszczeniach jest kluczowe dla komfortu użytkowników oraz efektywności energetycznej. Wiele systemów ogrzewania działa nieoptymalnie, 
+prowadząc do nadmiernego zużycia energii i wysokich kosztów eksploatacji. Dodatkowo, brak dostępu do danych historycznych oraz brak możliwości elastycznego dostosowania ustawień utrudnia skuteczne zarządzanie ciepłem.  
 
-**3. Korzyści biznesowe**  
+3. Korzyści biznesowe
 
-✅ **Optymalizacja zużycia energii** – System pozwala na inteligentne zarządzanie ogrzewaniem, co prowadzi do obniżenia kosztów eksploatacji.  
-✅ **Komfort użytkownika** – Użytkownicy mogą precyzyjnie dostosować temperaturę do swoich preferencji i harmonogramu dnia.  
-✅ **Dostęp do danych w czasie rzeczywistym** – Monitoring temperatury umożliwia natychmiastową reakcję na zmiany i poprawę efektywności ogrzewania.  
-✅ **Analiza trendów i historii temperatury** – Pomaga lepiej planować zarządzanie ogrzewaniem w różnych warunkach.  
-✅ **Elastyczność i personalizacja** – Możliwość ustawienia jednostek temperatury oraz trybu oszczędzania energii.  
+✅ Optymalizacja zużycia energii – System pozwala na inteligentne zarządzanie ogrzewaniem, co prowadzi do obniżenia kosztów eksploatacji.  
+✅ Komfort użytkownika – Użytkownicy mogą precyzyjnie dostosować temperaturę do swoich preferencji i harmonogramu dnia.  
+✅ Dostęp do danych w czasie rzeczywistym – Monitoring temperatury umożliwia natychmiastową reakcję na zmiany i poprawę efektywności ogrzewania.  
+✅ Analiza trendów i historii temperatury – Pomaga lepiej planować zarządzanie ogrzewaniem w różnych warunkach.  
+✅ Elastyczność i personalizacja – Możliwość ustawienia jednostek temperatury oraz trybu oszczędzania energii.  
 
-**4. Główne grupy docelowe**  
+4. Główne grupy docelowe
 
-🎯 **Użytkownicy indywidualni** – Osoby dbające o komfort cieplny w swoich domach oraz poszukujące oszczędności na rachunkach za energię.  
-🎯 **Właściciele nieruchomości i wynajmujący** – Możliwość automatycznego sterowania ogrzewaniem w wynajmowanych mieszkaniach i biurach.  
-🎯 **Firmy i zarządcy budynków** – Inteligentne zarządzanie ogrzewaniem w biurach i obiektach komercyjnych w celu redukcji kosztów operacyjnych.  
+🎯 Użytkownicy indywidualni – Osoby dbające o komfort cieplny w swoich domach oraz poszukujące oszczędności na rachunkach za energię.  
+🎯 Właściciele nieruchomości i wynajmując – Możliwość automatycznego sterowania ogrzewaniem w wynajmowanych mieszkaniach i biurach.  
+🎯 Firmy i zarządcy budynków – Inteligentne zarządzanie ogrzewaniem w biurach i obiektach komercyjnych w celu redukcji kosztów operacyjnych.  
 
-**5. Podsumowanie**  
-SmartHeating to innowacyjne rozwiązanie, które łączy nowoczesne technologie IoT z praktycznymi funkcjonalnościami, zwiększając komfort użytkowania i obniżając koszty energii. System dostarcza kluczowe dane i analizy, umożliwiając użytkownikom podejmowanie świadomych decyzji dotyczących ogrzewania pomieszczeń. Dzięki elastycznym ustawieniom i automatycznym mechanizmom sterowania, SmartHeating wspiera zrównoważone zarządzanie energią, co czyni go atrakcyjnym wyborem na rynku inteligentnych domów i budynków. 🔥🏡
+5. Podsumowanie 
+SmartHeating to innowacyjne rozwiązanie, które łączy nowoczesne technologie IoT z praktycznymi funkcjonalnościami, zwiększając komfort użytkowania i obniżając koszty energii. 
+System dostarcza kluczowe dane i analizy, umożliwiając użytkownikom podejmowanie świadomych decyzji dotyczących ogrzewania pomieszczeń. 
+Dzięki elastycznym ustawieniom i automatycznym mechanizmom sterowania, SmartHeating wspiera zrównoważone zarządzanie energią, 
+co czyni go atrakcyjnym wyborem na rynku inteligentnych domów i budynków. 🔥🏡
