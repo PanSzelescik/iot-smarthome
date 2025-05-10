@@ -1,9 +1,14 @@
 ﻿using System.Text;
+using IotSmartHome.Data;
 using Microsoft.Azure.Devices.Client;
+using Microsoft.EntityFrameworkCore;
 
 namespace IotSmartHome.Services;
 
-public class IoTHubBackgroundService(ILogger<IoTHubBackgroundService> logger, IConfiguration configuration)
+public class IoTHubBackgroundService(
+    ILogger<IoTHubBackgroundService> logger,
+    IConfiguration configuration,
+    IDbContextFactory<ApplicationDbContext> dbContextFactory)
     : BackgroundService
 {
     private DeviceClient? _deviceClient;
@@ -55,14 +60,14 @@ public class IoTHubBackgroundService(ILogger<IoTHubBackgroundService> logger, IC
                 if (receivedMessage != null)
                 {
                     var messageBody = Encoding.ASCII.GetString(receivedMessage.GetBytes());
-                    logger.LogInformation("[{MessageId}]: {MessageBody} at: {CreationTimeUtc}", receivedMessage.MessageId, messageBody, receivedMessage.CreationTimeUtc);
+                    logger.LogInformation("[{MessageId}]: {MessageBody} at: {CreationTimeUtc} {EnqueuedTimeUtc}", receivedMessage.MessageId, messageBody, receivedMessage.CreationTimeUtc, receivedMessage.EnqueuedTimeUtc);
 
                     await _deviceClient.CompleteAsync(receivedMessage, cancellationToken);
                 }
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Wystąpił błąd podczas przetwarzania wiadomości");
+                logger.LogError(ex, "Error reading message from IoT Hub");
                 await Task.Delay(5000, cancellationToken);
             }
         }
