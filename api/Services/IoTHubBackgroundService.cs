@@ -55,7 +55,7 @@ public class IoTHubBackgroundService(ILogger<IoTHubBackgroundService> logger, IC
                 if (receivedMessage != null)
                 {
                     var messageBody = Encoding.ASCII.GetString(receivedMessage.GetBytes());
-                    logger.LogInformation("Received message: {MessageBody}", messageBody);
+                    logger.LogInformation("[{MessageId}]: {MessageBody} at: {CreationTimeUtc}", receivedMessage.MessageId, messageBody, receivedMessage.CreationTimeUtc);
 
                     await _deviceClient.CompleteAsync(receivedMessage, cancellationToken);
                 }
