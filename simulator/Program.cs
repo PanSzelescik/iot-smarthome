@@ -1,3 +1,4 @@
+using IotSmartHome.Function;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights();
 
+builder.Services.AddSingleton<IoTHubServiceClient>();
 builder.Services.AddHttpClient();
 
 builder.Build().Run();
