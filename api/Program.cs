@@ -7,13 +7,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var postgresConnectionString = builder.Configuration.GetConnectionString("Postgres")!;
+var postgresConnectionString = builder.Configuration.GetConnectionString("Postgres") ?? throw new InvalidOperationException("Connection string 'Postgres' not found.");
+_ = builder.Configuration.GetConnectionString("IotHubDevice") ?? throw new InvalidOperationException("Connection string 'IotHubDevice' not found.");
+
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseNpgsql(postgresConnectionString));
 
 builder.Services
     .AddIdentity<UserEntity, IdentityRole<int>>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddHostedService<IoTHubBackgroundService>();
 builder.Services.AddSingleton<IEmailSender<UserEntity>, EmailSender>();
 
 builder.Services.AddApplicationInsightsTelemetry();
