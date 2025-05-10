@@ -14,7 +14,7 @@ builder.Services
     .AddIdentity<UserEntity, IdentityRole<int>>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<IEmailSender<UserEntity>, EmailSender>();
+builder.Services.AddSingleton<IEmailSender<UserEntity>, EmailSender>();
 
 builder.Services.AddApplicationInsightsTelemetry();
 
