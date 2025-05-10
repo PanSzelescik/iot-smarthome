@@ -1,4 +1,4 @@
-namespace IotSmartHome.Database.Enums;
+namespace IotSmartHome.Data.Enums;
 
 public enum DeviceType
 {

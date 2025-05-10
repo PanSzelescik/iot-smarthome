@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using IotSmartHome.Database.Enums;
+using IotSmartHome.Data.Enums;
 
-namespace IotSmartHome.Database.Entities;
+namespace IotSmartHome.Data.Entities;
 
 [Table("Devices")]
 public class DeviceEntity

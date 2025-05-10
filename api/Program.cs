@@ -1,5 +1,5 @@
-using IotSmartHome.Database;
-using IotSmartHome.Database.Entities;
+using IotSmartHome.Data;
+using IotSmartHome.Data.Entities;
 using IotSmartHome.Endpoints;
 using IotSmartHome.Services;
 using Microsoft.AspNetCore.Identity;

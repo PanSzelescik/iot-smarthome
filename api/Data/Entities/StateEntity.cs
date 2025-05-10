@@ -1,15 +1,15 @@
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace IotSmartHome.Database.Entities;
+namespace IotSmartHome.Data.Entities;
 
-[Table("Temperatures")]
+[Table("States")]
 [Index(nameof(CreatedDate), IsDescending = [true])]
-public class TemperatureEntity
+public class StateEntity
 {
     public int Id { get; set; }
     public int DeviceId { get; set; }
     public virtual DeviceEntity Device { get; set; }
-    public decimal Temperature { get; set; }
+    public bool State { get; set; }
     public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.UtcNow;
 }

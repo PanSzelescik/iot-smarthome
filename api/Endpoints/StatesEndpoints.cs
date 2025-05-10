@@ -1,4 +1,4 @@
-using IotSmartHome.Database;
+using IotSmartHome.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

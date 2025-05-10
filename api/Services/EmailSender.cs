@@ -1,4 +1,4 @@
-using IotSmartHome.Database.Entities;
+using IotSmartHome.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace IotSmartHome.Services;

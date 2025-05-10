@@ -1,9 +1,9 @@
-﻿using IotSmartHome.Database.Entities;
+﻿using IotSmartHome.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace IotSmartHome.Database;
+namespace IotSmartHome.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<UserEntity, IdentityRole<int>, int>(options)
 {

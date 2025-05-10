@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace IotSmartHome.Database.Entities;
+namespace IotSmartHome.Data.Entities;
 
 public class UserEntity : IdentityUser<int>
 {
