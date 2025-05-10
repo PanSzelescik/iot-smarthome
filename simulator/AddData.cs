@@ -39,7 +39,7 @@ public class AddData
         _logger.LogInformation("Current temperature is: {State}", result.State);
         
         var bytes = JsonSerializer.SerializeToUtf8Bytes(result);
-        await _ioTHubServiceClient.SendMessageToDeviceAsync("thermometer", bytes);
+        await _ioTHubServiceClient.SendMessageToDeviceAsync("api", bytes);
     }
 }
 
