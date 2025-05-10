@@ -34,7 +34,7 @@ public class AddData
         response.EnsureSuccessStatusCode();
         
         var result = await response.Content.ReadFromJsonAsync<StateResponse>(cancellationToken);
-        ArgumentNullException.ThrowIfNull(result, nameof(result));
+        ArgumentNullException.ThrowIfNull(result);
         
         _logger.LogInformation("Current temperature is: {State}", result.State);
         
