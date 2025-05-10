@@ -1,9 +1,14 @@
+using System.Globalization;
 using IotSmartHome.Data;
 using IotSmartHome.Data.Entities;
 using IotSmartHome.Endpoints;
 using IotSmartHome.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+var polishCultureInfo = new CultureInfo("pl-PL");
+CultureInfo.CurrentCulture = polishCultureInfo;
+CultureInfo.CurrentUICulture = polishCultureInfo;
 
 var builder = WebApplication.CreateBuilder(args);
 

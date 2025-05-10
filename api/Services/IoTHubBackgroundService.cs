@@ -59,8 +59,14 @@ public class IoTHubBackgroundService(
                 using var receivedMessage = await _deviceClient!.ReceiveAsync(cancellationToken);
                 if (receivedMessage != null)
                 {
+                    if (!receivedMessage.Properties.TryGetValue("iothub-creation-time-utc", out var creationTimeUtcString)
+                        || !DateTime.TryParse(creationTimeUtcString, out var creationTimeUtc))
+                    {
+                        creationTimeUtc = DateTime.UtcNow;
+                    }
+
                     var messageBody = Encoding.ASCII.GetString(receivedMessage.GetBytes());
-                    logger.LogInformation("[{MessageId}]: {MessageBody} at: {CreationTimeUtc} {EnqueuedTimeUtc}", receivedMessage.MessageId, messageBody, receivedMessage.CreationTimeUtc, receivedMessage.EnqueuedTimeUtc);
+                    logger.LogInformation("[{MessageId}]: {MessageBody} at: {CreationTimeUtc}", receivedMessage.MessageId, messageBody, creationTimeUtc);
 
                     await _deviceClient.CompleteAsync(receivedMessage, cancellationToken);
                 }
