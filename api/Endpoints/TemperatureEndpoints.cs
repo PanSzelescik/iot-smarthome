@@ -12,7 +12,8 @@ public static class TemperatureEndpoints
     {
         var group = endpoints
             .MapGroup("temperature")
-            .WithTags("Temperature");
+            .WithTags("Temperature")
+            .RequireAuthorization();
 
         group.MapGet("{deviceId}", DeviceTemperatures);
         group.MapGet("{deviceId}/current", CurrentDeviceTemperature);
