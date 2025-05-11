@@ -25,7 +25,7 @@ public class IoTHubDeviceClient : IDisposable, IAsyncDisposable
     public async Task SendBytesAsync(byte[] message, CancellationToken cancellationToken = default)
     {
         using var msg = new Message(message);
-
+        msg.MessageId = Guid.CreateVersion7().ToString();
         await _client.SendEventAsync(msg, cancellationToken);
     }
 
