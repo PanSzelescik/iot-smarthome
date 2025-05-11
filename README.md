@@ -2,6 +2,8 @@
 
 SmartHeating to aplikacja oparta na .NET 9 i CosmosDB, umożliwiająca monitorowanie temperatury w pomieszczeniu.
 
+https://iotsmarthomeapi.azurewebsites.net/
+
 ## ✨ Funkcje
 
 - **Zbieranie danych** – Rejestrowanie temperatury w czasie rzeczywistym i zapisywanie jej w bazie danych.

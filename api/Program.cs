@@ -1,6 +1,7 @@
 using System.Globalization;
 using IotSmartHome.Data;
 using IotSmartHome.Data.Entities;
+using IotSmartHome.Endpoints;
 using IotSmartHome.Extensions;
 using IotSmartHome.Services;
 using Microsoft.AspNetCore.Identity;
@@ -46,6 +47,7 @@ app.UseSwaggerUI();
 
 app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromDescription(); // Redirect / to Swagger UI
 app.MapIdentityApi<UserEntity>();
+app.UseTemperatureEndpoints();
 
 await using var scope = app.Services.CreateAsyncScope();
 await using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
