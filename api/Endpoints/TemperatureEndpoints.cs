@@ -1,5 +1,6 @@
 ﻿using IotSmartHome.Data;
 using IotSmartHome.Data.Entities;
+using IotSmartHome.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,11 @@ public static class TemperatureEndpoints
     private static async Task<Ok<List<TemperatureEntity>>> DeviceTemperatures(
         [FromRoute] string deviceId,
         [FromServices] ApplicationDbContext db,
+        HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var userId = httpContext.GetUserId();
+        
         var temperatures = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
             .OrderByDescending(x => x.CreatedDate)
@@ -35,8 +39,11 @@ public static class TemperatureEndpoints
     private static async Task<Results<Ok<TemperatureEntity>, NotFound>> CurrentDeviceTemperature(
         [FromRoute] string deviceId,
         [FromServices] ApplicationDbContext db,
+        HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var userId = httpContext.GetUserId();
+        
         var temperature = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
             .OrderByDescending(x => x.CreatedDate)
