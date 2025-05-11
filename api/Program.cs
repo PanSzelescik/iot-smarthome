@@ -22,6 +22,7 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.Us
 builder.Services
     .AddIdentity<UserEntity, IdentityRole<int>>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddAuthorization();
 
 builder.Services.AddHostedService<IoTHubBackgroundService>();
 builder.Services.AddSingleton<IEmailSender<UserEntity>, EmailSender>();
