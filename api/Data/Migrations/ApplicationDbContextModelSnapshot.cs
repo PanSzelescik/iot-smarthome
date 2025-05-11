@@ -22,84 +22,25 @@ namespace IotSmartHome.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("IotSmartHome.Data.Entities.DeviceEntity", b =>
+            modelBuilder.Entity("IotSmartHome.Data.Entities.TemperatureEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("DeviceId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<double>("State")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Devices");
-                });
-
-            modelBuilder.Entity("IotSmartHome.Data.Entities.StateEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("DeviceId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("State")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedDate")
-                        .IsDescending();
-
-                    b.HasIndex("DeviceId");
-
-                    b.ToTable("States");
-                });
-
-            modelBuilder.Entity("IotSmartHome.Data.Entities.TemperatureEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("DeviceId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Temperature")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedDate")
-                        .IsDescending();
-
-                    b.HasIndex("DeviceId");
+                    b.HasIndex("DeviceId", "CreatedDate")
+                        .IsDescending(false, true);
 
                     b.ToTable("Temperatures");
                 });
@@ -303,39 +244,6 @@ namespace IotSmartHome.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("IotSmartHome.Data.Entities.DeviceEntity", b =>
-                {
-                    b.HasOne("IotSmartHome.Data.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IotSmartHome.Data.Entities.StateEntity", b =>
-                {
-                    b.HasOne("IotSmartHome.Data.Entities.DeviceEntity", "Device")
-                        .WithMany("States")
-                        .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Device");
-                });
-
-            modelBuilder.Entity("IotSmartHome.Data.Entities.TemperatureEntity", b =>
-                {
-                    b.HasOne("IotSmartHome.Data.Entities.DeviceEntity", "Device")
-                        .WithMany("Temperatures")
-                        .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Device");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
@@ -385,13 +293,6 @@ namespace IotSmartHome.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("IotSmartHome.Data.Entities.DeviceEntity", b =>
-                {
-                    b.Navigation("States");
-
-                    b.Navigation("Temperatures");
                 });
 #pragma warning restore 612, 618
         }

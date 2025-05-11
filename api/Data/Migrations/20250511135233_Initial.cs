@@ -54,6 +54,20 @@ namespace IotSmartHome.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Temperatures",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeviceId = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<double>(type: "double precision", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Temperatures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -159,70 +173,6 @@ namespace IotSmartHome.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Devices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Devices_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "States",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DeviceId = table.Column<int>(type: "integer", nullable: false),
-                    State = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_States", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_States_Devices_DeviceId",
-                        column: x => x.DeviceId,
-                        principalTable: "Devices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Temperatures",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DeviceId = table.Column<int>(type: "integer", nullable: false),
-                    Temperature = table.Column<decimal>(type: "numeric", nullable: false),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Temperatures", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Temperatures_Devices_DeviceId",
-                        column: x => x.DeviceId,
-                        principalTable: "Devices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -261,31 +211,10 @@ namespace IotSmartHome.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Devices_UserId",
-                table: "Devices",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_States_CreatedDate",
-                table: "States",
-                column: "CreatedDate",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_States_DeviceId",
-                table: "States",
-                column: "DeviceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Temperatures_CreatedDate",
+                name: "IX_Temperatures_DeviceId_CreatedDate",
                 table: "Temperatures",
-                column: "CreatedDate",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Temperatures_DeviceId",
-                table: "Temperatures",
-                column: "DeviceId");
+                columns: new[] { "DeviceId", "CreatedDate" },
+                descending: new[] { false, true });
         }
 
         /// <inheritdoc />
@@ -307,16 +236,10 @@ namespace IotSmartHome.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "States");
-
-            migrationBuilder.DropTable(
                 name: "Temperatures");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Devices");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

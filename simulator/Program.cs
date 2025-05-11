@@ -17,7 +17,7 @@ builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights();
 
-builder.Services.AddSingleton<IoTHubServiceClient>();
-builder.Services.AddHttpClient();
+builder.Services.AddSingleton<IoTHubDeviceClientFactory>();
+builder.Services.AddHttpClient<HomeAssistantClient>();
 
 builder.Build().Run();

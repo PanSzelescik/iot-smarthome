@@ -1,7 +1,7 @@
 using System.Globalization;
 using IotSmartHome.Data;
 using IotSmartHome.Data.Entities;
-using IotSmartHome.Endpoints;
+using IotSmartHome.Extensions;
 using IotSmartHome.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +12,9 @@ CultureInfo.CurrentUICulture = polishCultureInfo;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var postgresConnectionString = builder.Configuration.GetConnectionString("Postgres") ?? throw new InvalidOperationException("Connection string 'Postgres' not found.");
-_ = builder.Configuration.GetConnectionString("IotHubDevice") ?? throw new InvalidOperationException("Connection string 'IotHubDevice' not found.");
+var postgresConnectionString = builder.Configuration.GetRequiredConnectionString("Postgres");
+_ = builder.Configuration.GetRequiredConnectionString("EventHubCompatibleConnectionString");
+_ = builder.Configuration.GetRequiredConnectionString("EventHubName");
 
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseNpgsql(postgresConnectionString));
 
@@ -45,10 +46,9 @@ app.UseSwaggerUI();
 
 app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromDescription(); // Redirect / to Swagger UI
 app.MapIdentityApi<UserEntity>();
-app.UseStatesEndpoints();
 
 await using var scope = app.Services.CreateAsyncScope();
 await using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 await context.Database.MigrateAsync(app.Lifetime.ApplicationStopping);
 
-await app.RunAsync();
+app.Run();
