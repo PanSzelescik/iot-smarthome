@@ -7,16 +7,16 @@ public class EmailSender : IEmailSender<UserEntity>
 {
     public Task SendConfirmationLinkAsync(UserEntity user, string email, string confirmationLink)
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 
     public Task SendPasswordResetLinkAsync(UserEntity user, string email, string resetLink)
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 
     public Task SendPasswordResetCodeAsync(UserEntity user, string email, string resetCode)
     {
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 }
