@@ -49,13 +49,18 @@ public sealed record TemperatureResponse
     public required double State { get; init; }
 
     [SetsRequiredMembers]
-    public TemperatureResponse(HomeAssistantStateResponse response)
+    public TemperatureResponse(HomeAssistantStateResponse response) : this(response.State)
     {
-        if (!double.TryParse(response.State, CultureInfo.InvariantCulture, out var state))
+    }
+    
+    [SetsRequiredMembers]
+    public TemperatureResponse(string state)
+    {
+        if (!double.TryParse(state, CultureInfo.InvariantCulture, out var parsedState))
         {
-            throw new ArgumentException($"Invalid state: {response.State}", nameof(response));
+            throw new ArgumentException($"Invalid state: {state}", nameof(state));
         }
         
-        State = state;
+        State = parsedState;
     }
 }
