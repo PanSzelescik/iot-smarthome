@@ -35,7 +35,7 @@ public static class TemperaturesEndpoints
             .WithSummary("Maksymalna temperatura urządzenia z możliwością filtrowania po czasie.");
     }
     
-    private static async Task<Ok<PaginatedResponse<TemperatureEntity>>> DeviceTemperatures(
+    private static async Task<Ok<PaginatedResponse<TemperatureWithDateResponse>>> DeviceTemperatures(
         [FromRoute] string deviceId,
         [FromQuery] DateTimeOffset? before,
         [FromQuery] DateTimeOffset? after,
@@ -52,6 +52,12 @@ public static class TemperaturesEndpoints
             .WhereIf(before.HasValue, x => x.CreatedDate < before)
             .WhereIf(after.HasValue, x => x.CreatedDate > after)
             .OrderByDescending(x => x.CreatedDate)
+            .Select(x => new TemperatureWithDateResponse
+            {
+                Id = x.Id,
+                State = x.State,
+                CreatedDate = x.CreatedDate,
+            })
             .ToPaginatedResponseAsync(skip, take, cancellationToken);
 
         return TypedResults.Ok(temperatures);
@@ -76,7 +82,7 @@ public static class TemperaturesEndpoints
         return TypedResults.Ok(temperatures);
     }
 
-    private static async Task<Results<Ok<TemperatureEntity>, NotFound>> CurrentDeviceTemperature(
+    private static async Task<Results<Ok<TemperatureWithDateResponse>, NotFound>> CurrentDeviceTemperature(
         [FromRoute] string deviceId,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
@@ -87,6 +93,12 @@ public static class TemperaturesEndpoints
         var temperatureEntity = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
             .OrderByDescending(x => x.CreatedDate)
+            .Select(x => new TemperatureWithDateResponse
+            {
+                Id = x.Id,
+                State = x.State,
+                CreatedDate = x.CreatedDate,
+            })
             .FirstOrDefaultAsync(cancellationToken);
 
         return temperatureEntity == null ? TypedResults.NotFound() : TypedResults.Ok(temperatureEntity);
@@ -113,7 +125,7 @@ public static class TemperaturesEndpoints
         return temperature == null ? TypedResults.NotFound() : TypedResults.Ok(temperature.Value);
     }
     
-    private static async Task<Results<Ok<TemperatureEntity>, NotFound>> MinDeviceTemperature(
+    private static async Task<Results<Ok<TemperatureWithDateResponse>, NotFound>> MinDeviceTemperature(
         [FromRoute] string deviceId,
         [FromQuery] DateTimeOffset? before,
         [FromQuery] DateTimeOffset? after,
@@ -128,12 +140,18 @@ public static class TemperaturesEndpoints
             .WhereIf(before.HasValue, x => x.CreatedDate < before)
             .WhereIf(after.HasValue, x => x.CreatedDate > after)
             .OrderBy(x => x.State)
+            .Select(x => new TemperatureWithDateResponse
+            {
+                Id = x.Id,
+                State = x.State,
+                CreatedDate = x.CreatedDate,
+            })
             .FirstOrDefaultAsync(cancellationToken);
         
         return temperatureEntity == null ? TypedResults.NotFound() : TypedResults.Ok(temperatureEntity);
     }
     
-    private static async Task<Results<Ok<TemperatureEntity>, NotFound>> MaxDeviceTemperature(
+    private static async Task<Results<Ok<TemperatureWithDateResponse>, NotFound>> MaxDeviceTemperature(
         [FromRoute] string deviceId,
         [FromQuery] DateTimeOffset? before,
         [FromQuery] DateTimeOffset? after,
@@ -148,6 +166,12 @@ public static class TemperaturesEndpoints
             .WhereIf(before.HasValue, x => x.CreatedDate < before)
             .WhereIf(after.HasValue, x => x.CreatedDate > after)
             .OrderByDescending(x => x.State)
+            .Select(x => new TemperatureWithDateResponse
+            {
+                Id = x.Id,
+                State = x.State,
+                CreatedDate = x.CreatedDate,
+            })
             .FirstOrDefaultAsync(cancellationToken);
         
         return temperatureEntity == null ? TypedResults.NotFound() : TypedResults.Ok(temperatureEntity);
