@@ -16,7 +16,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
         builder.Entity<IdentityRole<int>>().HasData(new IdentityRole<int>
         {
-            Id = 1,
+            Id = AppConsts.RoleAdminId,
             Name = AppConsts.RoleAdmin,
             NormalizedName = AppConsts.RoleAdmin.Normalize().ToUpperInvariant(),
         });
