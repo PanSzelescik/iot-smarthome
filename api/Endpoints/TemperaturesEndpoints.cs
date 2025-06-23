@@ -1,6 +1,5 @@
 ﻿using IotSmartHome.Data;
 using IotSmartHome.Data.Dto;
-using IotSmartHome.Data.Entities;
 using IotSmartHome.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +9,9 @@ namespace IotSmartHome.Endpoints;
 
 public static class TemperaturesEndpoints
 {
-    public static void UseTemperaturesEndpoints(this IEndpointRouteBuilder deviceGroup)
+    public static void UseTemperaturesEndpoints(this IEndpointRouteBuilder thermometersGroup)
     {
-        var temperaturesGroup = deviceGroup
+        var temperaturesGroup = thermometersGroup
             .MapGroup("temperature")
             .WithTags("Temperatures");
 
@@ -35,7 +34,7 @@ public static class TemperaturesEndpoints
             .WithSummary("Maksymalna temperatura urządzenia z możliwością filtrowania po czasie.");
     }
     
-    private static async Task<Ok<PaginatedResponse<TemperatureWithDateResponse>>> DeviceTemperatures(
+    private static async Task<Results<Ok<PaginatedResponse<TemperatureWithDateResponse>>, NotFound>> DeviceTemperatures(
         [FromRoute] string deviceId,
         [FromQuery] DateTimeOffset? before,
         [FromQuery] DateTimeOffset? after,
@@ -45,7 +44,13 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
+        
+        if (!isAdmin && !await db.UserThermometers.AnyAsync(x => x.DeviceId == deviceId && x.UserId == userId, cancellationToken))
+        {
+            return TypedResults.NotFound();
+        }
 
         var temperatures = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
@@ -63,7 +68,7 @@ public static class TemperaturesEndpoints
         return TypedResults.Ok(temperatures);
     }
     
-    private static async Task<Ok<int>> CountDeviceTemperatures(
+    private static async Task<Results<Ok<int>, NotFound>> CountDeviceTemperatures(
         [FromRoute] string deviceId,
         [FromQuery] DateTimeOffset? before,
         [FromQuery] DateTimeOffset? after,
@@ -71,7 +76,13 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
+        
+        if (!isAdmin && !await db.UserThermometers.AnyAsync(x => x.DeviceId == deviceId && x.UserId == userId, cancellationToken))
+        {
+            return TypedResults.NotFound();
+        }
 
         var temperatures = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
@@ -88,7 +99,13 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
+        
+        if (!isAdmin && !await db.UserThermometers.AnyAsync(x => x.DeviceId == deviceId && x.UserId == userId, cancellationToken))
+        {
+            return TypedResults.NotFound();
+        }
         
         var temperatureEntity = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
@@ -112,7 +129,13 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
+        
+        if (!isAdmin && !await db.UserThermometers.AnyAsync(x => x.DeviceId == deviceId && x.UserId == userId, cancellationToken))
+        {
+            return TypedResults.NotFound();
+        }
 
         var temperature = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
@@ -133,7 +156,13 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
+        
+        if (!isAdmin && !await db.UserThermometers.AnyAsync(x => x.DeviceId == deviceId && x.UserId == userId, cancellationToken))
+        {
+            return TypedResults.NotFound();
+        }
 
         var temperatureEntity = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)
@@ -159,7 +188,13 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
+        
+        if (!isAdmin && !await db.UserThermometers.AnyAsync(x => x.DeviceId == deviceId && x.UserId == userId, cancellationToken))
+        {
+            return TypedResults.NotFound();
+        }
         
         var temperatureEntity = await db.Temperatures
             .Where(x => x.DeviceId == deviceId)

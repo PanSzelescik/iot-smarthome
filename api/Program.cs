@@ -48,7 +48,7 @@ app.UseSwaggerUI();
 
 app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromDescription(); // Redirect / to Swagger UI
 app.MapIdentityApi<UserEntity>();
-app.UseDevicesEndpoints();
+app.UseThermometersEndpoints();
 
 await using var scope = app.Services.CreateAsyncScope();
 await using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

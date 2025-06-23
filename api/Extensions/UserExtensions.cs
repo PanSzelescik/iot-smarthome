@@ -19,4 +19,7 @@ public static class UserExtensions
         
         return userId;
     }
+    
+    public static bool IsAdmin(this HttpContext? httpContext)
+        => httpContext?.User.IsInRole(AppConsts.RoleAdmin) ?? false;
 }
