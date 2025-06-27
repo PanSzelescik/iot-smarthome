@@ -9,7 +9,7 @@ OpenAPI/Postman collection: https://iotsmarthomeapi.azurewebsites.net/swagger/v1
 ## ✨ Funkcje
 
 - **Zbieranie danych** – Rejestrowanie temperatury w czasie rzeczywistym i zapisywanie jej w bazie danych.
-- **Automatyczne sterowanie ogrzewaniem** – Włączanie i wyłączanie grzejnika na podstawie zadanych progów temperatury.
+- **Automatyczne sterowanie ogrzewaniem** – Włączanie i wyłączanie grzejnika czy klimy na podstawie zadanych progów temperatury.
 - **Analiza danych** – Obliczanie średniej temperatury w określonym przedziale czasowym, maksymalnej, minimalnej, przeliczanie na różne jednostki.
 
 ## 🛠 Technologie
@@ -23,7 +23,7 @@ OpenAPI/Postman collection: https://iotsmarthomeapi.azurewebsites.net/swagger/v1
 Jako użytkownik
 chciałbym móc ustawić docelową temperaturę,
 przy której grzejnik włączy się,
-po to, aby podnieść temperaturę w pomieszczeniu do komfortowego poziomu, 
+po to, aby podnieść temperaturę w pomieszczeniu do komfortowego poziomu (lub klimę, aby obliżyć), 
 oraz temperaturę, przy której grzejnik automatycznie się wyłączy, aby nie przegrzewać pomieszczenia. 
 Dzięki temu system grzewczy działałby w sposób efektywny, utrzymując stałą, komfortową temperaturę w pomieszczeniu, 
 unikając jednocześnie zbędnego zużycia energii. Moje ustawienia powinny być elastyczne i umożliwiać łatwą regulację 
