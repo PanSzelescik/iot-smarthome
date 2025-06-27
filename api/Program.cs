@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 var postgresConnectionString = builder.Configuration.GetRequiredConnectionString("Postgres");
 _ = builder.Configuration.GetRequiredConnectionString("EventHubCompatibleConnectionString");
 _ = builder.Configuration.GetRequiredConnectionString("EventHubName");
+_ = builder.Configuration.GetRequiredConnectionString("IoTHubConnectionString");
 
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseNpgsql(postgresConnectionString));
 
@@ -26,6 +27,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddHostedService<IoTHubBackgroundService>();
 builder.Services.AddSingleton<IEmailSender<UserEntity>, EmailSender>();
+builder.Services.AddSingleton<IoTHubSenderService>();
 
 builder.Services.AddApplicationInsightsTelemetry();
 
@@ -50,6 +52,7 @@ app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromD
 app.MapIdentityApi<UserEntity>();
 app.UseThermometersEndpoints();
 app.UseUsersEndpoints();
+app.UseAutomationsEndpoints();
 
 await using var scope = app.Services.CreateAsyncScope();
 await using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

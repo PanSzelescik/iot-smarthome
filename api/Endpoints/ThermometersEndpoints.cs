@@ -21,7 +21,7 @@ public static class ThermometersEndpoints
             .WithSummary("Lista termometrów z możliwością paginacji.");
         
         thermometersGroup.MapPost(string.Empty, AddThermometer)
-            .WithSummary("Dodanie nowego termometru.");
+            .WithSummary("Sparowanie nowego termometru.");
         
         var thermometerGroup = thermometersGroup
             .MapGroup("{deviceId}");
@@ -31,7 +31,7 @@ public static class ThermometersEndpoints
             .WithName(nameof(GetUserThermometer));
         
         thermometerGroup.MapDelete(string.Empty, DeleteThermometer)
-            .WithSummary("Usunięcie termometru.");
+            .WithSummary("Usunięcie sparowanego termometru.");
 
         thermometerGroup.MapPut("{userId:int}", AddThermometerToUser)
             .WithSummary("Dodanie dostepu do termometru dla innego użytkownika.");
@@ -54,7 +54,6 @@ public static class ThermometersEndpoints
 
         var userThermometers = await db.UserThermometers
             .WhereIf(!isAdmin, x => x.UserId == userId)
-            .WhereIf(isAdmin, x => x.IsAdmin)
             .ToPaginatedResponseAsync(skip, take, cancellationToken);
 
         return TypedResults.Ok(userThermometers);
@@ -72,7 +71,6 @@ public static class ThermometersEndpoints
         var userThermometer = await db.UserThermometers
             .Where(x => x.DeviceId == deviceId)
             .WhereIf(!isAdmin, x => x.UserId == userId)
-            .WhereIf(isAdmin, x => x.IsAdmin)
             .FirstOrDefaultAsync(cancellationToken);
 
         return userThermometer == null ? TypedResults.NotFound() : TypedResults.Ok(userThermometer);
@@ -175,11 +173,11 @@ public static class ThermometersEndpoints
         var userId = httpContext.GetUserId();
         var isAdmin = httpContext.IsAdmin();
 
-        var userThermometer = await db.UserThermometers
+        var userThermometerExists = await db.UserThermometers
             .Where(x => x.DeviceId == deviceId && x.IsAdmin)
             .WhereIf(!isAdmin, x => x.UserId == userId)
-            .FirstOrDefaultAsync(cancellationToken);
-        if (userThermometer == null)
+            .AnyAsync(cancellationToken);
+        if (!userThermometerExists)
         {
             return TypedResults.BadRequest("This device is not registered to your account or not exists.");
         }

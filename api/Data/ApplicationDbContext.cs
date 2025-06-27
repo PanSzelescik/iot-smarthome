@@ -9,6 +9,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<TemperatureEntity> Temperatures { get; set; }
     public DbSet<UserThermometerEntity> UserThermometers { get; set; }
+    
+    public DbSet<SwitchEntity> Switches { get; set; }
+    public DbSet<UserSwitchEntity> UserSwitches { get; set; }
+    
+    public DbSet<AutomationEntity> Automations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

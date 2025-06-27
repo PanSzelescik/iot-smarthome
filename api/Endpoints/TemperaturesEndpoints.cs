@@ -30,7 +30,7 @@ public static class TemperaturesEndpoints
     public static void UseTemperaturesEndpoints(this IEndpointRouteBuilder thermometersGroup)
     {
         var temperaturesGroup = thermometersGroup
-            .MapGroup("temperature")
+            .MapGroup("temperatures")
             .WithTags("Temperatures");
 
         temperaturesGroup.MapGet("list", DeviceTemperatures)
