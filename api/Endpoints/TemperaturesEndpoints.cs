@@ -62,7 +62,6 @@ public static class TemperaturesEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken,
         [FromQuery, SwaggerParameter(TemperatureUnits)] TemperatureUnit temperatureUnit = TemperatureUnit.DegreeCelsius)
-
     {
         var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();

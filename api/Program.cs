@@ -51,6 +51,7 @@ app.UseSwaggerUI();
 app.MapGet("/", () => TypedResults.Redirect("/swagger/index.html")).ExcludeFromDescription(); // Redirect / to Swagger UI
 app.MapIdentityApi<UserEntity>();
 app.UseThermometersEndpoints();
+app.UseSwitchesEndpoints();
 app.UseUsersEndpoints();
 app.UseAutomationsEndpoints();
 

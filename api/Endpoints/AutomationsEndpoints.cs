@@ -21,7 +21,7 @@ public static class AutomationsEndpoints
             .WithSummary("Lista automatyzacji z możliwością paginacji.");
         
         automationsGroup.MapPost(string.Empty, AddAutomation)
-            .WithSummary("Dodanie nowej automatyzacji.");
+            .WithSummary("Dodanie nowej automatyzacji. Condition: 0 - Równa się, 1 - Nie równa się, 2 - Większe niż, 3 - Większe lub równe, 4 - Mniejsze niż, 5 - Mniejsze lub równe.");
         
         var automationGroup = automationsGroup
             .MapGroup("{automationId:int}");
@@ -91,7 +91,7 @@ public static class AutomationsEndpoints
         }
         
         var userSwitch = await db.UserSwitches
-            .Where(x => x.DeviceId == request.DeviceId && x.IsAdmin)
+            .Where(x => x.DeviceId == request.ThenDeviceId && x.IsAdmin)
             .WhereIf(!isAdmin, x => x.UserId == userId)
             .FirstOrDefaultAsync(cancellationToken);
 
