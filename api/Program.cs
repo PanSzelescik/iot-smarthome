@@ -22,7 +22,8 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.Us
 
 builder.Services
     .AddIdentity<UserEntity, IdentityRole<int>>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddTokenProvider<DataProtectorTokenProvider<UserEntity>>(TokenOptions.DefaultProvider);
 builder.Services.AddAuthorization();
 
 builder.Services.AddHostedService<IoTHubBackgroundService>();
