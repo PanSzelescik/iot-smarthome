@@ -140,12 +140,12 @@ az iot hub create --resource-group $resourceGroup --name $iotHubName --location 
 az iot hub show-connection-string --name iotsmarthomeiothub --resource-group ProjektIotHub --output table
 ```
 7. Przejdź do IoT Hub w portalu Azure > Devices i kliknij Add Device aby dodać nowe urządzenie
-zdj
+![brave_NUq6FX3zQV](https://github.com/user-attachments/assets/f33ee14d-0cb7-4984-a6d7-26216c776a4b)
 8. Ustaw tylko Device ID i kliknij Save
-zdj
+![brave_2pgrBNp3br](https://github.com/user-attachments/assets/bba2e1d9-0413-4ddb-8a2d-986e9f3223cc)
 9. Następnie kliknij na nowo utworzone urządzenie i skopiuj Connection Stringa, który będzie potrzebny do konfiguracji urządzenia
-zdj
-zdj
+![brave_tIA8AyZOyw](https://github.com/user-attachments/assets/9a127946-47e8-4c4e-b501-be725c977831)
+![brave_kNCwXz8YPU](https://github.com/user-attachments/assets/20c2618a-e573-4aae-9b5c-3282dfb9aab3)
 10. Przejdź do zakładki Hub settings > Built-in endpoints i skopiuj Event Hub-compatible name oraz Event Hub-compatible endpoint
-zdj
-zdj
+![image](https://github.com/user-attachments/assets/943e8d80-c6d7-4c2a-815b-a95649d143d2)
+![image](https://github.com/user-attachments/assets/cee824f2-843d-47dc-9f00-aa8a179eea5b)
