@@ -4,11 +4,13 @@ SmartHeating to aplikacja oparta na .NET 9 i PostgreSQL, umożliwiająca monitor
 
 https://iotsmarthomeapi.azurewebsites.net/
 
+OpenAPI/Postman collection: https://iotsmarthomeapi.azurewebsites.net/swagger/v1/swagger.json
+
 ## ✨ Funkcje
 
 - **Zbieranie danych** – Rejestrowanie temperatury w czasie rzeczywistym i zapisywanie jej w bazie danych.
 - **Automatyczne sterowanie ogrzewaniem** – Włączanie i wyłączanie grzejnika na podstawie zadanych progów temperatury.
-- **Analiza danych** – Obliczanie średniej temperatury w określonym przedziale czasowym.
+- **Analiza danych** – Obliczanie średniej temperatury w określonym przedziale czasowym, maksymalnej, minimalnej, przeliczanie na różne jednostki.
 
 ## 🛠 Technologie
 
@@ -39,7 +41,7 @@ aby analizować, jak zmieniała się temperatura w ciągu dnia lub tygodnia.
 3. Historia temperatury:
 
 Jako użytkownik
-chciałbym Chciałbym mieć możliwość przeglądania historii zmian temperatury w pomieszczeniu,
+chciałbym mieć możliwość przeglądania historii zmian temperatury w pomieszczeniu,
 po to, aby móc analizować, jak temperatura zmieniała się w różnych porach dnia i nocy. 
 Analiza takich danych ułatwiłaby mi także planowanie, jak najlepiej wykorzystać system grzewczy 
 w zależności od zmieniających się warunków w ciągu dnia lub tygodnia.
