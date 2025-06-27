@@ -126,9 +126,10 @@ public class IoTHubBackgroundService(
         if (!db.Temperatures.Any(x => x.Id == temperatureEntity.Id))
         {
             await db.Temperatures.AddAsync(temperatureEntity, cancellationToken);
-            await db.SaveChangesAsync(cancellationToken);
             
             await ProcessAutomations(db, temperatureEntity, cancellationToken);
+            
+            await db.SaveChangesAsync(cancellationToken);
         }
     }
 
@@ -145,6 +146,13 @@ public class IoTHubBackgroundService(
             try
             {
                 await ioTHubSenderService.SendJsonAsync(automation.UserSwitch.DeviceId, new SwitchResponse { Enabled = automation.ThenState });
+                await db.Switches.AddAsync(new SwitchEntity
+                {
+                    Id = Guid.CreateVersion7(),
+                    DeviceId = automation.UserSwitch.DeviceId,
+                    State = automation.ThenState,
+                    CreatedDate = DateTimeOffset.UtcNow
+                }, cancellationToken);
             }
             catch (Exception ex)
             {
