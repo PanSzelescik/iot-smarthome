@@ -209,3 +209,45 @@ Gdzie `HOME_ASSISTANT_TOKEN` to token do Home Assistant (https://ha.panszelescik
 - temperature to temperatura w stopniach Celsjusza (pamiętaj o kropce, nie przecinku)
 - code to klucz zabezpieczający funkcję, który znajdziesz w Functions > Keys > _master
 ![brave_uotyTGmp3N](https://github.com/user-attachments/assets/9551eeae-e243-4648-a4e3-ab9bab9b875e)
+
+### Azure App Service
+1. Zaloguj się do portalu Azure i uruchom Cloud Shell.
+2. Ustaw zmienne
+```sh
+let "randomIdentifier=$RANDOM*$RANDOM"
+location="polandcentral"
+resourceGroup="appservice-rg-$randomIdentifier"
+appServicePlan="appservice-plan-$randomIdentifier"
+webAppName="appservice-webapp-$randomIdentifier"
+```
+3. Utwórz grupę zasobów
+```sh
+az group create --name $resourceGroup --location $location
+```
+4. Utwórz plan App Service
+```sh
+az appservice plan create \
+  --name $appServicePlan \
+  --resource-group $resourceGroup \
+  --location $location \
+  --sku B1 \
+  --is-linux
+```
+5. Utwórz Web App
+```sh
+az webapp create \
+  --resource-group $resourceGroup \
+  --plan $appServicePlan \
+  --name $webAppName \
+  --runtime "DOTNETCORE|9.0" \
+  --deployment-local-git
+```
+6. Skonfiguruj zmienne środowiskowe
+```sh
+az webapp config appsettings set \
+  --resource-group $resourceGroup \
+  --name $webAppName \
+  --settings "ConnectionStrings__Postgres=value" "ConnectionStrings__EventHubName=value" "ConnectionStrings__EventHubCompatibleConnectionString=value" "ConnectionStrings__IoTHubConnectionString=value"
+```
+Gdzie ConnectionString `Postgres` to Connection String do bazy danych PostgreSQL, `EventHubName` to Event Hub-compatible name z Azure IoT Hub, `EventHubCompatibleConnectionString` to Event Hub-compatible endpoint z Azure IoT Hub, aby móc odbierać dane, a `IoTHubConnectionString` to Connection String do IoT Hub, aby móc wysyłać dane.
+7. Kod wdrożysz identycznie jak w przypadku Azure Functions, czyli otwierając solucję w Riderze znajdującą się w folderze api i publikując ją do Azure. Wybierz utworzony wcześniej Web App i kliknij Next aby zbudować solucję i ją wysłać do Azure
