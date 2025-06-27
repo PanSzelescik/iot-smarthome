@@ -113,4 +113,4 @@ az postgres flexible-server firewall-rule create \
   --end-ip-address $endIp
 ```
 6. Pobierz Connection Stringa wybierając serwer bazy danych na Azure > Settings > Connect. Wybierz odpowiedni database, Authentication Method jako PostgreSQL. Następnie rozwiń Connect from your app i skopiuj ADO.NET
-![postgresql.png](postgresql.png)
+![postgresql.png](https://github.com/PanSzelescik/iot-smarthome/blob/main/postgresql.png)
