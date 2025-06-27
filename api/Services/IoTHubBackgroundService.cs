@@ -142,7 +142,14 @@ public class IoTHubBackgroundService(
         foreach (var automation in automations.Where(x => x.WhenCondition.IsTrue(temperatureEntity.State, x.WhenState)))
         {
             logger.LogInformation("Automation triggered: {Automation}", automation);
-            await ioTHubSenderService.SendJsonAsync(automation.UserSwitch.DeviceId, new SwitchResponse { Enabled = automation.ThenState });
+            try
+            {
+                await ioTHubSenderService.SendJsonAsync(automation.UserSwitch.DeviceId, new SwitchResponse { Enabled = automation.ThenState });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error sending switch response for automation {AutomationId}", automation.Id);
+            }
         }
     }
 
