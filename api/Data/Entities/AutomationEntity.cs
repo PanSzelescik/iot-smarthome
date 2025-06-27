@@ -16,9 +16,14 @@ public class AutomationEntity
     public ConditionEnum WhenCondition { get; set; }
     
     public int ThenSwitchId { get; set; }
-    public virtual UserSwitchEntity UserSwitch { get; set; }
+    public virtual UserSwitchEntity ThenSwitch { get; set; }
     
     public bool ThenState { get; set; }
     
     public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.UtcNow;
+
+    public override string ToString()
+    {
+        return $"AutomationEntity {{ Id = {Id}, UserThermometerId = {UserThermometerId}, WhenState = {WhenState}, WhenCondition = {WhenCondition}, ThenSwitchId = {ThenSwitchId}, ThenState = {ThenState}, CreatedDate = {CreatedDate} }}";
+    }
 }

@@ -137,7 +137,7 @@ public class IoTHubBackgroundService(
     {
         var automations = await db.Automations
             .Where(x => x.UserThermometer.DeviceId == temperatureEntity.DeviceId)
-            .Include(x => x.UserSwitch)
+            .Include(x => x.ThenSwitch)
             .ToListAsync(cancellationToken);
 
         foreach (var automation in automations.Where(x => x.WhenCondition.IsTrue(temperatureEntity.State, x.WhenState)))
@@ -145,11 +145,11 @@ public class IoTHubBackgroundService(
             logger.LogInformation("Automation triggered: {Automation}", automation);
             try
             {
-                await ioTHubSenderService.SendJsonAsync(automation.UserSwitch.DeviceId, new SwitchResponse { Enabled = automation.ThenState });
+                await ioTHubSenderService.SendJsonAsync(automation.ThenSwitch.DeviceId, new SwitchResponse { Enabled = automation.ThenState });
                 await db.Switches.AddAsync(new SwitchEntity
                 {
                     Id = Guid.CreateVersion7(),
-                    DeviceId = automation.UserSwitch.DeviceId,
+                    DeviceId = automation.ThenSwitch.DeviceId,
                     State = automation.ThenState,
                     CreatedDate = DateTimeOffset.UtcNow
                 }, cancellationToken);

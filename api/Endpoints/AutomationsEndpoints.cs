@@ -46,7 +46,7 @@ public static class AutomationsEndpoints
         var automation = await db.Automations
             .WhereIf(!isAdmin, x => x.UserThermometer.UserId == userId)
             .Include(x => x.UserThermometer)
-            .Include(x => x.UserSwitch)
+            .Include(x => x.ThenSwitch)
             .FirstOrDefaultAsync(x => x.Id == automationId, cancellationToken);
 
         return automation == null ? TypedResults.NotFound() : TypedResults.Ok(automation);
@@ -65,7 +65,7 @@ public static class AutomationsEndpoints
         var automations = await db.Automations
             .WhereIf(!isAdmin, x => x.UserThermometer.UserId == userId)
             .Include(x => x.UserThermometer)
-            .Include(x => x.UserSwitch)
+            .Include(x => x.ThenSwitch)
             .ToPaginatedResponseAsync(skip, take, cancellationToken);
         
         return TypedResults.Ok(automations);
@@ -105,7 +105,7 @@ public static class AutomationsEndpoints
             UserThermometer = userThermometer,
             WhenState = request.WhenState,
             WhenCondition = request.WhenCondition,
-            UserSwitch = userSwitch,
+            ThenSwitch = userSwitch,
             ThenState = request.ThenState,
         };
         
