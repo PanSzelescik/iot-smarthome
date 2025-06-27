@@ -31,7 +31,7 @@ builder.Services.AddApplicationInsightsTelemetry();
 
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(x => x.EnableAnnotations());
 
 var app = builder.Build();
 

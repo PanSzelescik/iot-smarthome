@@ -4,11 +4,29 @@ using IotSmartHome.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace IotSmartHome.Endpoints;
 
 public static class TemperaturesEndpoints
 {
+    private const string TemperatureUnits =
+        """
+        Dostępne jednostki temperatury (parametr 'unit' w zapytaniu):
+        1  - Stopnie Celsjusza (°C),
+        2  - Stopnie Delisle’a (°De),
+        3  - Stopnie Fahrenheita (°F),
+        4  - Stopnie Newtona (°N),
+        5  - Stopnie Rankine’a (°Ra),
+        6  - Stopnie Réaumura (°Ré),
+        7  - Stopnie Rømera (°Rø),
+        8  - Kelwiny (K),
+        9  - Milistopnie Celsjusza (m°C),
+        10 - Temperatura słoneczna (Solar Temperature),
+        """;
+    
     public static void UseTemperaturesEndpoints(this IEndpointRouteBuilder thermometersGroup)
     {
         var temperaturesGroup = thermometersGroup
@@ -42,7 +60,9 @@ public static class TemperaturesEndpoints
         [FromQuery] int? take,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        [FromQuery, SwaggerParameter(TemperatureUnits)] TemperatureUnit temperatureUnit = TemperatureUnit.DegreeCelsius)
+
     {
         var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
@@ -64,6 +84,13 @@ public static class TemperaturesEndpoints
                 CreatedDate = x.CreatedDate,
             })
             .ToPaginatedResponseAsync(skip, take, cancellationToken);
+        
+        foreach (var data in temperatures.Results)
+        {
+            data.State = Temperature
+                .FromDegreesCelsius(data.State)
+                .As(temperatureUnit);
+        }
 
         return TypedResults.Ok(temperatures);
     }
@@ -97,7 +124,8 @@ public static class TemperaturesEndpoints
         [FromRoute] string deviceId,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        [FromQuery, SwaggerParameter(TemperatureUnits)] TemperatureUnit temperatureUnit = TemperatureUnit.DegreeCelsius)
     {
         var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
@@ -118,7 +146,16 @@ public static class TemperaturesEndpoints
             })
             .FirstOrDefaultAsync(cancellationToken);
 
-        return temperatureEntity == null ? TypedResults.NotFound() : TypedResults.Ok(temperatureEntity);
+        if (temperatureEntity == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        temperatureEntity.State = Temperature
+            .FromDegreesCelsius(temperatureEntity.State)
+            .As(temperatureUnit);
+        
+        return TypedResults.Ok(temperatureEntity);
     }
     
     private static async Task<Results<Ok<double>, NotFound>> AverageDeviceTemperature(
@@ -127,7 +164,8 @@ public static class TemperaturesEndpoints
         [FromQuery] DateTimeOffset? after,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        [FromQuery, SwaggerParameter(TemperatureUnits)] TemperatureUnit temperatureUnit = TemperatureUnit.DegreeCelsius)
     {
         var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
@@ -145,7 +183,14 @@ public static class TemperaturesEndpoints
             .DefaultIfEmpty()
             .AverageAsync(cancellationToken);
         
-        return temperature == null ? TypedResults.NotFound() : TypedResults.Ok(temperature.Value);
+        if (temperature == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        return TypedResults.Ok(Temperature
+            .FromDegreesCelsius(temperature.Value)
+            .As(temperatureUnit));
     }
     
     private static async Task<Results<Ok<TemperatureWithDateResponse>, NotFound>> MinDeviceTemperature(
@@ -154,7 +199,8 @@ public static class TemperaturesEndpoints
         [FromQuery] DateTimeOffset? after,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        [FromQuery, SwaggerParameter(TemperatureUnits)] TemperatureUnit temperatureUnit = TemperatureUnit.DegreeCelsius)
     {
         var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
@@ -177,7 +223,16 @@ public static class TemperaturesEndpoints
             })
             .FirstOrDefaultAsync(cancellationToken);
         
-        return temperatureEntity == null ? TypedResults.NotFound() : TypedResults.Ok(temperatureEntity);
+        if (temperatureEntity == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        temperatureEntity.State = Temperature
+            .FromDegreesCelsius(temperatureEntity.State)
+            .As(temperatureUnit);
+        
+        return TypedResults.Ok(temperatureEntity);
     }
     
     private static async Task<Results<Ok<TemperatureWithDateResponse>, NotFound>> MaxDeviceTemperature(
@@ -186,7 +241,8 @@ public static class TemperaturesEndpoints
         [FromQuery] DateTimeOffset? after,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        [FromQuery, SwaggerParameter(TemperatureUnits)] TemperatureUnit temperatureUnit = TemperatureUnit.DegreeCelsius)
     {
         var isAdmin = httpContext.IsAdmin();
         var userId = httpContext.GetUserId();
@@ -209,7 +265,15 @@ public static class TemperaturesEndpoints
             })
             .FirstOrDefaultAsync(cancellationToken);
         
-        return temperatureEntity == null ? TypedResults.NotFound() : TypedResults.Ok(temperatureEntity);
-    }
+        if (temperatureEntity == null)
+        {
+            return TypedResults.NotFound();
+        }
 
+        temperatureEntity.State = Temperature
+            .FromDegreesCelsius(temperatureEntity.State)
+            .As(temperatureUnit);
+        
+        return TypedResults.Ok(temperatureEntity);
+    }
 }
