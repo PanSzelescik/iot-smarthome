@@ -114,3 +114,38 @@ az postgres flexible-server firewall-rule create \
 ```
 6. Pobierz Connection Stringa wybierając serwer bazy danych na Azure > Settings > Connect. Wybierz odpowiedni database, Authentication Method jako PostgreSQL. Następnie rozwiń Connect from your app i skopiuj ADO.NET
 ![image](https://github.com/user-attachments/assets/cd5f564d-8f77-4bd2-b91b-f3439f020308)
+
+### Azure IoT Hub
+1. Zaloguj się do portalu Azure i uruchom Cloud Shell.
+2. Zainstaluj rozszerzenie IoT dla Azure CLI
+```sh
+az extension add --upgrade --name azure-iot
+```
+3. Ustaw zmienne
+```sh
+location="polandcentral"
+resourceGroup="iot-rg"
+iotHubName="my-iothub-$(openssl rand -hex 3)"
+```
+4. Utwórz grupę zasobów
+```sh
+az group create --name $resourceGroup --location $location
+```
+5. Utwórz IoT Hub
+```sh
+az iot hub create --resource-group $resourceGroup --name $iotHubName --location $location --sku S1
+```
+6. Pobierz Connection Stringa, aby API mogło wysyłać dane do urządzeń:
+```sh
+az iot hub show-connection-string --name iotsmarthomeiothub --resource-group ProjektIotHub --output table
+```
+7. Przejdź do IoT Hub w portalu Azure > Devices i kliknij Add Device aby dodać nowe urządzenie
+zdj
+8. Ustaw tylko Device ID i kliknij Save
+zdj
+9. Następnie kliknij na nowo utworzone urządzenie i skopiuj Connection Stringa, który będzie potrzebny do konfiguracji urządzenia
+zdj
+zdj
+10. Przejdź do zakładki Hub settings > Built-in endpoints i skopiuj Event Hub-compatible name oraz Event Hub-compatible endpoint
+zdj
+zdj
