@@ -3,6 +3,7 @@ using IotSmartHome.Data.Dto;
 using IotSmartHome.Data.Entities;
 using IotSmartHome.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -127,9 +128,10 @@ public static class ThermometersEndpoints
 
     private static async Task<Results<BadRequest<string>, CreatedAtRoute<UserThermometerEntity>>> AddThermometerToUser(
         [FromRoute] string deviceId,
-        [FromRoute(Name = "userId")] int userId2,
+        [FromQuery] string email,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
+        UserManager<UserEntity> userManager,
         CancellationToken cancellationToken)
     {
         var userId = httpContext.GetUserId();
@@ -144,9 +146,15 @@ public static class ThermometersEndpoints
             return TypedResults.BadRequest("This device is not registered to your account or not exists.");
         }
         
+        var user = await userManager.FindByEmailAsync(email);
+        if (user == null)
+        {
+            return TypedResults.BadRequest("User with this email does not exist.");
+        }
+        
         var entity = new UserThermometerEntity
         {
-            UserId = userId2,
+            UserId = user.Id,
             DeviceId = deviceId,
             FriendlyName = userThermometer.FriendlyName,
             IsAdmin = false,
@@ -160,7 +168,7 @@ public static class ThermometersEndpoints
 
     private static async Task<Results<BadRequest<string>, NoContent>> DeleteThermometerFromUser(
         [FromRoute] string deviceId,
-        [FromRoute(Name = "userId")] int userId2,
+        [FromQuery] string email,
         [FromServices] ApplicationDbContext db,
         HttpContext httpContext,
         CancellationToken cancellationToken)
@@ -178,7 +186,7 @@ public static class ThermometersEndpoints
         }
         
         var count = await db.UserThermometers
-            .Where(x => x.DeviceId == deviceId && x.UserId == userId2)
+            .Where(x => x.DeviceId == deviceId && x.User.Email == email)
             .ExecuteDeleteAsync(cancellationToken);
         return count > 0 ? TypedResults.NoContent() : TypedResults.BadRequest("This device is not registered to your account or not exists.");
     }
