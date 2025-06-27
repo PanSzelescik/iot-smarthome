@@ -149,3 +149,62 @@ az iot hub show-connection-string --name iotsmarthomeiothub --resource-group Pro
 10. Przejdź do zakładki Hub settings > Built-in endpoints i skopiuj Event Hub-compatible name oraz Event Hub-compatible endpoint
 ![image](https://github.com/user-attachments/assets/943e8d80-c6d7-4c2a-815b-a95649d143d2)
 ![image](https://github.com/user-attachments/assets/cee824f2-843d-47dc-9f00-aa8a179eea5b)
+
+### Azure Functions
+1. Zaloguj się do portalu Azure i uruchom Cloud Shell.
+2. Ustaw zmienne
+```sh
+let "randomIdentifier=$RANDOM*$RANDOM"
+location="polandcentral"
+resourceGroup="func-rg-$randomIdentifier"
+storage="funcstorage$randomIdentifier"
+plan="func-plan-$randomIdentifier"
+functionApp="func-app-$randomIdentifier"
+```
+3. Utwórz grupę zasobów
+```sh
+az group create --name $resourceGroup --location $location
+```
+4. Utwórz Storage Account
+```sh
+az storage account create --name $storage --location $location --resource-group $resourceGroup --sku Standard_LRS
+```
+5. Utwórz plan App Service (Consumption Plan, Linux)
+```sh
+az functionapp plan create \
+  --resource-group $resourceGroup \
+  --name $plan \
+  --location $location \
+  --number-of-workers 1 \
+  --sku Y1 \
+  --is-linux
+```
+6. Utwórz Function App z obsługą .NET 9 (isolated)
+```sh
+az functionapp create \
+   --resource-group $resourceGroup \
+   --plan $plan \
+   --runtime dotnet-isolated \
+   --functions-version 4 \
+   --name $functionApp \
+   --storage-account $storage \
+   --os-type Linux
+```
+7. Dodaj zmienne środowiskowe
+```sh
+az functionapp config appsettings set \
+  --name $functionApp \
+  --resource-group $resourceGroup \
+  --settings "HOME_ASSISTANT_TOKEN=value" "IOTHUB_DEVICE_CONNECTION_STRING_POKOJ_SZYMONA=value" "IOTHUB_DEVICE_CONNECTION_STRING_SALON=value"
+```
+Gdzie `HOME_ASSISTANT_TOKEN` to token do Home Assistant (https://ha.panszelescik.pl/), a `IOTHUB_DEVICE_CONNECTION_STRING_POKOJ_SZYMONA` i `IOTHUB_DEVICE_CONNECTION_STRING_SALON` to Connection Stringi odpowiednio dla urządzeń o Device ID `pokoj_szymona` i `salon` z Azure IoT Hub.
+8. Kod symulatora znajduje się w katalogu `simulator`, otwórz solucję za pomocą Ridera (upewnij się, że masz zainstalowany .NET 9 i plugin Azure Toolkit for Rider)
+9. Kliknij prawym na solucję i wybierz Publish, a następnie Azure
+zdj
+10. Wybierz utworzony wcześniej Function App (w razie potrzeby zaloguj się) i kliknij Next aby zbudować solucję i ją wysłać do Azure
+zdj
+11. Symulator co 15 minut będzie pobierał prawdziwą temperaturę z Home Assistant i przesyłał je jako `pokoj_szymona` i `salon`. W razie potrzeby testowania możesz użyć ręcznych funkcji: https://iotsmarthomesimulator.azurewebsites.net/api/pokoj_szymona?temperature=23.48&code=value gdzie:
+- pokoj_szymona to Device ID urządzenia
+- temperature to temperatura w stopniach Celsjusza (pamiętaj o kropce, nie przecinku)
+- code to klucz zabezpieczający funkcję, który znajdziesz w Functions > Keys > _master
+zdj
