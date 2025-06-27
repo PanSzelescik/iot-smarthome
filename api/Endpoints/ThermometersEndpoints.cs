@@ -84,11 +84,6 @@ public static class ThermometersEndpoints
     {
         var userId = httpContext.GetUserId();
 
-        if (await db.UserThermometers.AnyAsync(x => x.DeviceId == request.DeviceId, cancellationToken))
-        {
-            return TypedResults.BadRequest("This device is already registered. Please reset the device to get a new device ID.");
-        }
-
         var entity = new UserThermometerEntity
         {
             UserId = userId,
