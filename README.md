@@ -74,3 +74,43 @@ po to, aby zmniejszyć zużycie energii, gdy nie ma mnie w pomieszczeniu.
 ![Azure_Cost_Calculator](https://github.com/PanSzelescik/iot-smarthome/blob/main/Azure_Cost_Calculator.png)
 
 ## 🚨 Instalacja
+
+### Azure Database for PostgreSQL
+1. Zaloguj się do portalu Azure i uruchom Cloud Shell.
+2. Ustaw zmienne
+```sh
+let "randomIdentifier=$RANDOM*$RANDOM"
+location="polandcentral"
+resourceGroup="pg-rg-$randomIdentifier"
+server="pg-server-$randomIdentifier"
+sku="Standard_D2ds_v4"
+login="azureuser"
+password="Pa$$w0rD-$randomIdentifier"
+startIp=0.0.0.0
+endIp=0.0.0.0
+```
+3. Utwórz grupę zasobów
+```sh
+az group create --name $resourceGroup --location $location
+```
+4. Utwórz serwer PostgreSQL Flexible Server
+```sh
+az postgres flexible-server create \
+  --name $server \
+  --resource-group $resourceGroup \
+  --location $location \
+  --admin-user $login \
+  --admin-password $password \
+  --sku-name $sku
+```
+5. Skonfiguruj regułę zapory, aby zezwolić na dostęp z dowolnego adresu IP (zrób to tylko dla serwera testowego, w produkcji należy ograniczyć dostęp do określonych adresów IP)
+```sh
+az postgres flexible-server firewall-rule create \
+  --resource-group $resourceGroup \
+  --name AllowAll \
+  --server-name $server \
+  --start-ip-address $startIp \
+  --end-ip-address $endIp
+```
+6. Pobierz Connection Stringa wybierając serwer bazy danych na Azure > Settings > Connect. Wybierz odpowiedni database, Authentication Method jako PostgreSQL. Następnie rozwiń Connect from your app i skopiuj ADO.NET
+![postgresql.png](postgresql.png)
