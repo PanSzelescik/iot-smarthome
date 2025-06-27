@@ -200,11 +200,12 @@ az functionapp config appsettings set \
 Gdzie `HOME_ASSISTANT_TOKEN` to token do Home Assistant (https://ha.panszelescik.pl/), a `IOTHUB_DEVICE_CONNECTION_STRING_POKOJ_SZYMONA` i `IOTHUB_DEVICE_CONNECTION_STRING_SALON` to Connection Stringi odpowiednio dla urządzeń o Device ID `pokoj_szymona` i `salon` z Azure IoT Hub.
 8. Kod symulatora znajduje się w katalogu `simulator`, otwórz solucję za pomocą Ridera (upewnij się, że masz zainstalowany .NET 9 i plugin Azure Toolkit for Rider)
 9. Kliknij prawym na solucję i wybierz Publish, a następnie Azure
-zdj
+![rider64_uKdt1Xg8JZ](https://github.com/user-attachments/assets/fc68e2ed-4b38-4d14-8136-f46c02d19fa1)
+![rider64_dw6V8IMdtg](https://github.com/user-attachments/assets/86c585c0-e882-4274-8774-8383d39bf5cc)
 10. Wybierz utworzony wcześniej Function App (w razie potrzeby zaloguj się) i kliknij Next aby zbudować solucję i ją wysłać do Azure
-zdj
+![rider64_CERAjBeFbD](https://github.com/user-attachments/assets/3e026bc8-35fc-46fb-b140-bc45301a1c19)
 11. Symulator co 15 minut będzie pobierał prawdziwą temperaturę z Home Assistant i przesyłał je jako `pokoj_szymona` i `salon`. W razie potrzeby testowania możesz użyć ręcznych funkcji: https://iotsmarthomesimulator.azurewebsites.net/api/pokoj_szymona?temperature=23.48&code=value gdzie:
 - pokoj_szymona to Device ID urządzenia
 - temperature to temperatura w stopniach Celsjusza (pamiętaj o kropce, nie przecinku)
 - code to klucz zabezpieczający funkcję, który znajdziesz w Functions > Keys > _master
-zdj
+![brave_uotyTGmp3N](https://github.com/user-attachments/assets/9551eeae-e243-4648-a4e3-ab9bab9b875e)
