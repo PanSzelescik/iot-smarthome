@@ -55,7 +55,7 @@ po to, aby ocenić, jak efektywnie działa ogrzewanie
 5. Obsługa różnych jednostek temperatury:
 
 Jako użytkownik
-chciałbym móc wybrać jednostkę temperatury (°C lub °F)
+chciałbym móc wybrać jednostkę temperatury (°C, °F lub K)
 po to, aby dostosować system do moich preferencji.
 
 6. Oszczędzanie energii:
