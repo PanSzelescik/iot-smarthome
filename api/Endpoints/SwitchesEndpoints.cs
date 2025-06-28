@@ -2,6 +2,7 @@
 using IotSmartHome.Data.Dto;
 using IotSmartHome.Data.Entities;
 using IotSmartHome.Extensions;
+using IotSmartHome.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,9 @@ public static class SwitchesEndpoints
         
         switchGroup.MapDelete("{userId:int}", DeleteSwitchFromUser)
             .WithSummary("Usunięcie dostępu do przełącznika przez innego użytkownika.");
+
+        switchGroup.MapPost("change/{enabled:bool}", ChangeSwitch)
+            .WithSummary("Włącz lub wyłącz przełącznik.");
         
         switchGroup.UseStatesEndpoints();
     }
@@ -189,5 +193,48 @@ public static class SwitchesEndpoints
             .Where(x => x.DeviceId == deviceId && x.User.Email == email)
             .ExecuteDeleteAsync(cancellationToken);
         return count > 0 ? TypedResults.NoContent() : TypedResults.BadRequest("This device is not registered to your account or not exists.");
+    }
+    
+    private static async Task<Results<BadRequest<string>, Ok<SwitchEntity>>> ChangeSwitch(
+        [FromRoute] string deviceId,
+        [FromRoute] bool enabled,
+        [FromServices] ApplicationDbContext db,
+        [FromServices] IoTHubSenderService ioTHubSenderService,
+        HttpContext httpContext,
+        CancellationToken cancellationToken)
+    {
+        var userId = httpContext.GetUserId();
+        var isAdmin = httpContext.IsAdmin();
+
+        var userSwitch = await db.UserSwitches
+            .Where(x => x.DeviceId == deviceId)
+            .WhereIf(!isAdmin, x => x.UserId == userId)
+            .FirstOrDefaultAsync(cancellationToken);
+        
+        if (userSwitch == null)
+        {
+            return TypedResults.BadRequest("This device is not registered to your account or not exists.");
+        }
+
+        try
+        {
+            await ioTHubSenderService.SendJsonAsync(deviceId, new SwitchResponse { Enabled = enabled });
+        }
+        catch (Exception ex)
+        {
+            return TypedResults.BadRequest($"Failed to send switch command: {ex.Message}");
+        }
+        
+        var entity = new SwitchEntity
+        {
+            Id = Guid.CreateVersion7(),
+            DeviceId = deviceId,
+            State = enabled,
+            CreatedDate = DateTimeOffset.UtcNow,
+        };
+        await db.Switches.AddAsync(entity, cancellationToken);
+        await db.SaveChangesAsync(cancellationToken);
+        
+        return TypedResults.Ok(entity);
     }
 }
