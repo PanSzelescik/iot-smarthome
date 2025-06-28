@@ -64,3 +64,14 @@ public sealed record TemperatureResponse
         State = parsedState;
     }
 }
+
+public sealed record SwitchResponse
+{
+    public required bool Enabled { get; init; }
+
+    [SetsRequiredMembers]
+    public SwitchResponse(bool enabled)
+    {
+        Enabled = enabled;
+    }
+}

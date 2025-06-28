@@ -38,6 +38,22 @@ public class AzureFunction(HomeAssistantClient homeAssistantClient, IoTHubDevice
         return await FakeAndSendData(request, "salon", cancellationToken);
     }
 
+    [Function("FakeKlima")]
+    public async Task<IActionResult> FakeKlima(
+        [HttpTrigger(AuthorizationLevel.Admin, "get", "post", Route = "klima")] HttpRequest request,
+        CancellationToken cancellationToken)
+    {
+        return await SendData(request, "klima", cancellationToken);
+    }
+    
+    [Function("FakeGrzejnik")]
+    public async Task<IActionResult> FakeGrzejnik(
+        [HttpTrigger(AuthorizationLevel.Admin, "get", "post", Route = "grzejnik")] HttpRequest request,
+        CancellationToken cancellationToken)
+    {
+        return await SendData(request, "grzejnik", cancellationToken);
+    }
+    
     private async Task FetchAndSendData(string sensor, string device, CancellationToken cancellationToken)
     {
         var homeAssistantStateResponse = await homeAssistantClient.FetchData(sensor, cancellationToken);
@@ -70,5 +86,31 @@ public class AzureFunction(HomeAssistantClient homeAssistantClient, IoTHubDevice
     {
         var deviceClient = ioTHubDeviceClientFactory.GetClient(device);
         await deviceClient.SendJsonAsync(temperatureResponse, cancellationToken);
+    }
+    
+    private async Task<IActionResult> SendData(HttpRequest request, string device, CancellationToken cancellationToken)
+    {
+        if (!request.Query.TryGetValue("enabled", out var enabled))
+        {
+            return new BadRequestObjectResult("Missing 'enabled' query parameter.");
+        }
+        
+        var enabledString = enabled.ToString();
+        if (string.IsNullOrWhiteSpace(enabledString))
+        {
+            return new BadRequestObjectResult("Enabled cannot be empty.");
+        }
+        
+        if (!bool.TryParse(enabledString, out var isEnabled))
+        {
+            return new BadRequestObjectResult("Invalid 'enabled' value. It must be 'true' or 'false'.");
+        }
+
+        var switchResponse = new SwitchResponse(isEnabled);
+        
+        var deviceClient = ioTHubDeviceClientFactory.GetClient(device);
+        await deviceClient.SendJsonAsync(switchResponse, cancellationToken);
+
+        return new OkObjectResult(switchResponse);
     }
 }
